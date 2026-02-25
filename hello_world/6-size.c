@@ -3,7 +3,7 @@
 /**
  * main - Entry point
  *
- * Description: Prints the size of various types on the computer.
+ * Description: Prints a string using puts.
  * Return: Always 0 (Success)
  */
 int main(void)
