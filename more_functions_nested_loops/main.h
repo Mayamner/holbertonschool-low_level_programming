@@ -8,3 +8,4 @@ int mul(int a, int b);
 void print_numbers(void);
 
 #endif
+void print_numbers(void);
