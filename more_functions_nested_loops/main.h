@@ -9,3 +9,4 @@ void print_numbers(void);
 
 #endif
 void print_numbers(void);
+void print_most_numbers(void);
