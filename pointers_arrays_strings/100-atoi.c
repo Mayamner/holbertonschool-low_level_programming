@@ -17,9 +17,9 @@ int _atoi(char *s)
 	started = 0;
 	while (*s != '\0')
 	{
-		if (*s == '-')
+		if (started == 0 && *s == '-')
 			sign = sign * -1;
-		else if (*s == '+')
+		else if (started == 0 && *s == '+')
 			sign = sign * 1;
 		else if (*s >= '0' && *s <= '9')
 		{
@@ -28,11 +28,7 @@ int _atoi(char *s)
 		}
 		else if (started == 1)
 			break;
-		else
-			sign = 1;
 		s++;
 	}
-	if (sign == -1)
-		return (-(int)result);
-	return ((int)result);
+	return ((int)(sign * result));
 }
