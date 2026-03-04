@@ -1,10 +1,13 @@
 #include "main.h"
+#include <stdio.h>
 
 int main(void)
 {
-	char *str;
+	char s[] = "Expect the best. Prepare for the worst. Capitalize on what comes.\n";
+	char *p;
 
-	str = "0123456789";
-	puts_half(str);
+	p = leet(s);
+	printf("%s", p);
+	printf("%s", s);
 	return (0);
 }
