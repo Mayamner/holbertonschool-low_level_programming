@@ -10,15 +10,26 @@ int _atoi(char *s)
 {
 	int sign;
 	unsigned int result;
+	int started;
 
 	sign = 1;
 	result = 0;
+	started = 0;
 	while (*s != '\0')
 	{
 		if (*s == '-')
 			sign = sign * -1;
-		if (*s >= '0' && *s <= '9')
+		else if (*s == '+')
+			sign = sign * 1;
+		else if (*s >= '0' && *s <= '9')
+		{
+			started = 1;
 			result = result * 10 + (*s - '0');
+		}
+		else if (started == 1)
+			break;
+		else
+			sign = 1;
 		s++;
 	}
 	if (sign == -1)
