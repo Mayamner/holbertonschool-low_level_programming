@@ -1,20 +1,33 @@
 #include "main.h"
 
 /**
- * _strcmp - compares two strings
- * @s1: pointer to the first string
- * @s2: pointer to the second string
+ * _strspn - gets the length of a prefix substring
+ * @s: pointer to the string to search
+ * @accept: pointer to the accepted bytes string
  *
- * Return: 0 if equal, negative if s1 < s2, positive if s1 > s2
+ * Return: number of bytes in s which consist only of bytes from accept
  */
-int _strcmp(char *s1, char *s2)
+unsigned int _strspn(char *s, char *accept)
 {
-	while (*s1 != '\0' && *s2 != '\0')
+	unsigned int count;
+	int i;
+	int found;
+
+	count = 0;
+	while (*s != '\0')
 	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
+		found = 0;
+		i = 0;
+		while (accept[i] != '\0')
+		{
+			if (*s == accept[i])
+				found = 1;
+			i++;
+		}
+		if (found == 0)
+			break;
+		count++;
+		s++;
 	}
-	return (*s1 - *s2);
+	return (count);
 }
