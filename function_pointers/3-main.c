@@ -4,6 +4,8 @@
 
 /**
  * main - performs the operation
+ * @argc: number of arguments
+ * @argv: array of argumentsxx
  * Return: Always 0
  */
 int main(int argc, char *argv[])
