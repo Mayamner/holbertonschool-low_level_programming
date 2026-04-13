@@ -2,6 +2,47 @@
 #include <stdio.h>
 
 /**
+ * print_char - prints a char
+ * @args: va_list of arguments
+ */
+void print_char(va_list args)
+{
+	printf("%c", va_arg(args, int));
+}
+
+/**
+ * print_int - prints an int
+ * @args: va_list of arguments
+ */
+void print_int(va_list args)
+{
+	printf("%d", va_arg(args, int));
+}
+
+/**
+ * print_float - prints a float
+ * @args: va_list of arguments
+ */
+void print_float(va_list args)
+{
+	printf("%f", va_arg(args, double));
+}
+
+/**
+ * print_string - prints a string
+ * @args: va_list of arguments
+ */
+void print_string(va_list args)
+{
+	char *str;
+
+	str = va_arg(args, char *);
+	if (str == NULL)
+		str = "(nil)";
+	printf("%s", str);
+}
+
+/**
  * print_all - prints anything
  * @format: list of types of arguments
  *
@@ -11,25 +52,37 @@ void print_all(const char * const format, ...)
 {
 	va_list args;
 	unsigned int i;
-	char *str;
 	int sep;
-	char fmt;
+	struct fmt
+	{
+		char type;
+		void (*f)(va_list);
+	} types[] = {
+		{'c', print_char},
+		{'i', print_int},
+		{'f', print_float},
+		{'s', print_string},
+		{0, NULL}
+	};
+	int j;
 
 	va_start(args, format);
 	i = 0;
 	sep = 0;
 	while (format && format[i])
 	{
-		fmt = format[i];
-		str = (fmt == 's') ? va_arg(args, char *) : NULL;
-		if (fmt == 'c')
-			printf("%s%c", sep++ ? ", " : "", va_arg(args, int));
-		if (fmt == 'i')
-			printf("%s%d", sep++ ? ", " : "", va_arg(args, int));
-		if (fmt == 'f')
-			printf("%s%f", sep++ ? ", " : "", va_arg(args, double));
-		if (fmt == 's')
-			printf("%s%s", sep++ ? ", " : "", str ? str : "(nil)");
+		j = 0;
+		while (types[j].f)
+		{
+			if (format[i] == types[j].type)
+			{
+				if (sep)
+					printf(", ");
+				types[j].f(args);
+				sep = 1;
+			}
+			j++;
+		}
 		i++;
 	}
 	va_end(args);
