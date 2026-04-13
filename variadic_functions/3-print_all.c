@@ -45,17 +45,22 @@ void print_string(va_list args)
  * @format: list of types of arguments
  * Return: Nothing.
  */
+/**
+	//  * struct fmt - struct for format types
+	//  * @type: the format character
+	//  * @f: the function associated
+	//  */
 void print_all(const char * const format, ...)
 {
 	va_list args;
 	unsigned int i;
 	int sep;
 	int j;
-    /**
-	 * struct fmt - struct for format types
-	 * @type: the format character
-	 * @f: the function associated
-	 */
+    // /**
+	//  * struct fmt - struct for format types
+	//  * @type: the format character
+	//  * @f: the function associated
+	//  */
 	struct fmt
 	{
 		char type;
