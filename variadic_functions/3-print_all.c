@@ -1,9 +1,20 @@
-#include "variadic_functions.h"
 #include <stdio.h>
+#include <stdarg.h>
+
+/**
+ * struct fmt - struct for format types
+ * @type: the format character
+ * @f: the function associated
+ */
+typedef struct fmt
+{
+	char type;
+	void (*f)(va_list);
+} fmt_t;
 
 /**
  * print_char - prints a char
- * @args: va_list of arguments
+ * @args: argument list
  */
 void print_char(va_list args)
 {
@@ -12,7 +23,7 @@ void print_char(va_list args)
 
 /**
  * print_int - prints an int
- * @args: va_list of arguments
+ * @args: argument list
  */
 void print_int(va_list args)
 {
@@ -21,7 +32,7 @@ void print_int(va_list args)
 
 /**
  * print_float - prints a float
- * @args: va_list of arguments
+ * @args: argument list
  */
 void print_float(va_list args)
 {
@@ -30,33 +41,22 @@ void print_float(va_list args)
 
 /**
  * print_string - prints a string
- * @args: va_list of arguments
+ * @args: argument list
  */
 void print_string(va_list args)
 {
-	char *str;
+	char *str = va_arg(args, char *);
 
-	str = va_arg(args, char *);
 	printf("%s", str ? str : "(nil)");
 }
 
 /**
  * print_all - prints anything
  * @format: list of types of arguments
- * Return: Nothing.
  */
 void print_all(const char * const format, ...)
 {
-	/**
-	 * struct fmt - struct for format types
-	 * @type: the format character
-	 * @f: the function associated
-	 */
-	struct fmt
-	{
-		char type;
-		void (*f)(va_list);
-	} types[] = {
+	fmt_t types[] = {
 		{'c', print_char},
 		{'i', print_int},
 		{'f', print_float},
@@ -64,17 +64,14 @@ void print_all(const char * const format, ...)
 		{0, NULL}
 	};
 	va_list args;
-	unsigned int i;
-	int sep;
-	int j;
+	unsigned int i = 0;
+	int j, sep = 0;
 
 	va_start(args, format);
-	i = 0;
-	sep = 0;
 	while (format && format[i])
 	{
 		j = 0;
-		while (types[j].f)
+		while (types[j].type)
 		{
 			if (format[i] == types[j].type)
 			{
