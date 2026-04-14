@@ -4,6 +4,17 @@
 #include <stdarg.h>
 
 /**
+ * struct fmt - struct for format types
+ * @type: the format character
+ * @f: the function associated
+ */
+typedef struct fmt
+{
+	char type;
+	void (*f)(va_list);
+} fmt_t;
+
+/**
  * sum_them_all - returns the sum of all its parameters
  * @n: number of arguments
  *

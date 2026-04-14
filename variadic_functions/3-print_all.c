@@ -1,16 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
-
-/**
- * struct fmt - struct for format types
- * @type: the format character
- * @f: the function associated
- */
-typedef struct fmt
-{
-	char type;
-	void (*f)(va_list);
-} fmt_t;
+#include "variadic_functions.h"
 
 /**
  * print_char - prints a char
